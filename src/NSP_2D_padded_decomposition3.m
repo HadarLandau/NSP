@@ -4,10 +4,12 @@
 % This function get a refined data, C^(J), decompose it throgh the %
 % multi-scale transform, and return a course data C^(0) along with %
 % the corresponding details.  
-% where: data - a vector 
+% where: data - a vector of
+%        J - levels of decomposition
 
 
-function [c_0, details,refined_c_l, padded_c_0, padded_details] = NSP_2D_padded_decomposition3 (data, J)
+function [details] = NSP_2D_padded_decomposition3 (data, J)
+%function [c_0, details,refined_c_l, padded_c_0, padded_details] = NSP_2D_padded_decomposition3 (data, J)
 %with the modification in the defenition of the mask  %length(data) is even!
 
   % J is an integer number in the range of [1,6]
