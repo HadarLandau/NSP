@@ -8,7 +8,7 @@ f_samples_noisycircle=NSP_2D_get_samples2 (256,0.3,0);
 
 
 %finding the details of each samples
-[c_0, details1,refined_c_l, padded_c_0, padded_details] = NSP_2D_padded_decomposition3 (f_samples_circle, 4);
+[details1] = NSP_2D_padded_decomposition3 (f_samples_circle, 4);
 [c_0, details2,refined_c_l, padded_c_0, padded_details] = NSP_2D_padded_decomposition3 (f_samples_semicircle, 4);
 [c_0, details3,refined_c_l, padded_c_0, padded_details] = NSP_2D_padded_decomposition3 (f_samples_lessnoisycircle, 4);
 [c_0, details4,refined_c_l, padded_c_0, padded_details] = NSP_2D_padded_decomposition3 (f_samples_noisycircle, 4);
