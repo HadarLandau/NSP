@@ -1,0 +1,36 @@
+# MATLAB autosave files
+*.asv
+*.m~
+
+# MATLAB backup files
+*.bak
+
+# Compiled MEX binaries (all platforms)
+*.mex*
+
+# Simulink autosave and code generation folders
+*.autosave
+slprj/
+sfprj/
+sccprj/
+
+# Simulink cache and build artifacts
+*_grt_rtw/
+*_ert_rtw/
+*.slxc
+*.slx.autosave
+*.mdl.autosave
+
+# MATLAB session and workspace files
+octave-workspace
+*.mat
+*.fig
+
+# Project definition and settings (optional, if you want to keep these private)
+*.prj
+*.settings
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
