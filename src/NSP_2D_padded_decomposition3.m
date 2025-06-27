@@ -1,5 +1,6 @@
 %figures 4-7
 
+function [details] = NSP_2D_padded_decomposition3 (data, J)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This function receives refined data C^(J), decomposes it through %
 % a multiscale transform, and returns coarse data C^(0) along with %
@@ -15,7 +16,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-function [details] = NSP_2D_padded_decomposition3 (data, J)
 
 % length(data) must be even!
 
