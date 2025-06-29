@@ -58,10 +58,10 @@ for l=1:6
   gamma{l}=gamma{l}/sum(gamma{l});
 end
 
-% plot all gamma^(l)
+% plot gamma^(l) for l=1,...,4
 figure
-for l=1:6
-  subplot(2,3,l)
+for l=1:4
+  subplot(1,4,l)
   plot ((gamma{l}))
   xticklabels({})
   if l==1
