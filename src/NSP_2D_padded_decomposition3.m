@@ -1,4 +1,4 @@
-%figures 4-7
+% figures 4-7
 
 function [details] = NSP_2D_padded_decomposition3 (data, J)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

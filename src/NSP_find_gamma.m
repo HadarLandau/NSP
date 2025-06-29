@@ -7,13 +7,13 @@ function gamma = NSP_find_gamma(alpha_ev, eps)
 %                                                                           %
 % Input:                                                                    %
 %   alpha_ev - cell array of length 6, each cell contains a refinement      %
-%              mask vector, alpha^(l)                                       %
+%              mask, alpha^(l)                                              %
 %   eps      - precision threshold for truncating small values in the       %
 %              decimation mask                                              %
 %                                                                           %
 % Output:                                                                   %
-%   gamma    - cell array of length 6, each cell contains a real normalized %
-%              gamma vector, gamma^(l)                                      %
+%   gamma    - cell array of length 6, each cell contains a normalized      %
+%              decimation mask, gamma^(l)                                   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 gamma=cell(6,1); % initialize output cell array
@@ -31,6 +31,7 @@ for l=1:6
   gamma_mask=ifft(1./fft(padded_vec));
 
   % truncate insignificant values
+
   % binary mask for significant entries
   indices=zeros(length(gamma_mask),1);
   for j=1:length(indices)
@@ -73,5 +74,6 @@ for l=1:6
       xlim([15 25])
   end
   title (['$\ell$ = ',num2str(l)],'FontSize', 24 ,'Interpreter','latex')
+end
 end
 

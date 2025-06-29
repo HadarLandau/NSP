@@ -1,51 +1,59 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This function computes the geometric subdivision mask, for       %
-% a given initial v.                                               %
-% where: initial_v is the initial value of v (using equation ?)    %
-% the output is 2 cell arrays represent the even and the odd masks %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% figure 3
 
 function [mask_ev, mask_odd] = NSP_create_mask_a1 (initial_v)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This function computes the geometric subdivision masks for            %
+% a given initial value of v.                                           %
+%                                                                       %
+% Input:                                                                %
+%   initial_v - the initial value of v (chosen according to equation ?) %
+%                                                                       %
+% Outputs:                                                              %
+%   mask_ev   - a 6x1 cell array, each cell contains an even mask       %
+%   mask_odd  - a 6x1 cell array, each cell contains a corresponding    %
+%               odd mask                                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   mask_ev=cell(6,1);
   mask_odd=cell(6,1);
 
-  % computing v(k)
+  % compute v^(k)
   v=zeros(6,1);
-  v(1)=sqrt((1+initial_v)/2);  %v(0)
+  v(1)=sqrt((1+initial_v)/2);  %v^(0)
   for k=2:6
-    v(k)=sqrt((1+v(k-1))/2);  %v(1),...,v(5)
+    v(k)=sqrt((1+v(k-1))/2);  %v^(1),...,v^(5)
   end
 
-  % defining alpha(k)
-  alpha=zeros(6,1);
+  % compute a^(k) for k=0,...,5
+  a=zeros(6,1);
   for k=1:6
-    alpha(k)=((2+sqrt(2*(v(k)+1)))*(2-v(k)*sqrt(2*(v(k)+1))))...
+    a(k)=((2+sqrt(2*(v(k)+1)))*(2-v(k)*sqrt(2*(v(k)+1))))...
                 /(8*v(k)*(v(k)-1)*sqrt(2*(v(k)+1))*(v(k)+3+2*sqrt(2*(v(k)+1))));
   end
 
-  % defining beta(k)
-  beta=zeros(6,1);
+  % compute b^(k) for k=0,...,5
+  b=zeros(6,1);
   for k=1:6
-    beta(k)=((v(k)+1)*(v(k)-2)-2*sqrt(2*(v(k)+1)))...
+    b(k)=((v(k)+1)*(v(k)-2)-2*sqrt(2*(v(k)+1)))...
                 /(2*v(k)*sqrt(2*(v(k)+1))*(v(k)+3+2*sqrt(2*(v(k)+1))));
   end
 
-  % computing the masks (S_a1_[0],...,S_a1_[5]) 
-  % computing the even masks
+  % computing the masks (S_alpha1^(0),...,S_alpha1^(5))
+
+  % construct the even masks
   for k=1:6
-    mask_ev{k}=[alpha(k)/(4*v(k)+4);...
-                (1+2*v(k)*beta(k)+4*v(k)*alpha(k))/(4*v(k)+4);...
-                (4*v(k)*(1-beta(k)-2*alpha(k))-2*alpha(k)+2)/(4*v(k)+4);...
-                (1+2*v(k)*beta(k)+4*v(k)*alpha(k))/(4*v(k)+4);...
-                alpha(k)/(4*v(k)+4)];
+    mask_ev{k}=[a(k)/(4*v(k)+4);...
+               (1+2*v(k)*b(k)+4*v(k)*a(k))/(4*v(k)+4);...
+               (4*v(k)*(1-b(k)-2*a(k))-2*a(k)+2)/(4*v(k)+4);...
+               (1+2*v(k)*b(k)+4*v(k)*a(k))/(4*v(k)+4);...
+               a(k)/(4*v(k)+4)];
   end
 
-  % computing the odd masks
+  % construct the odd masks
   for k=1:6
-    mask_odd{k}=[alpha(k)/2+beta(k)/(4*v(k)+4);...
-                 ((2-2*alpha(k))*(v(k)+1)-beta(k))/((4*v(k)+4));...
-                 ((2-2*alpha(k))*(v(k)+1)-beta(k))/((4*v(k)+4));...
-                 alpha(k)/2+beta(k)/(4*v(k)+4)];
+    mask_odd{k}=[a(k)/2+b(k)/(4*v(k)+4);...
+                ((2-2*a(k))*(v(k)+1)-b(k))/((4*v(k)+4));...
+                ((2-2*a(k))*(v(k)+1)-b(k))/((4*v(k)+4));...
+                a(k)/2+b(k)/(4*v(k)+4)];
   end
-
+end
