@@ -1,4 +1,4 @@
-% figures 4-7
+% figures 4,5
 
 function [details] = NSP_2D_padded_decomposition3 (data, J)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -14,7 +14,6 @@ function [details] = NSP_2D_padded_decomposition3 (data, J)
 %   details - A cell array containing the detail coefficients      %
 %             d{1},...,d{J}                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 
 % length(data) must be even!
@@ -36,6 +35,7 @@ function [details] = NSP_2D_padded_decomposition3 (data, J)
     L=size(c_l,1);
     % compute the geometric subdivision mask alpha^(l)
     [alpha_ev, alpha_odd] = NSP_create_mask_a1_2 (cos(2*pi/(length_data/2^(J-l+1))));
+
     % compute the decimation operator gamma^(l)
     gamma=NSP_find_gamma2(alpha_ev, 15);
 
@@ -103,8 +103,10 @@ function [details] = NSP_2D_padded_decomposition3 (data, J)
     padded_details_l=padded_details{l};
     pad_length=2*length_data/(2^(J-l));
 
-    details{l}=padded_details_l(pad_length+12:end-pad_length-11,:);%%%%%%%%%%%
-    details{l}=padded_details_l(pad_length+1:end-pad_length,:);%%%%%%%%%%%%
+    details{l}=padded_details_l(pad_length+12:end-pad_length-11,:);%%%%%%%%%%%  fig 4,5
+    %details{l}=padded_details_l(pad_length+1:end-pad_length,:);%%%%%%%%%%%%     fig 7
+    %details{l}=padded_details_l(pad_length+4:end-pad_length-3,:);%%%%%%%%%%%%    new fig
+    %details{l}=padded_details_l(pad_length+13:end-pad_length-12,:);
   end
 
   % extract original C^(0) (without padding)
@@ -119,17 +121,20 @@ function [details] = NSP_2D_padded_decomposition3 (data, J)
 
   % plot the original signal
   f1=@(t) cos(t); f2=@(t) sin(t);   %circle
-  %f1=@(t) cos(t); f2=@(t) sin(t); f3=@(t) 1+sin(t);   %%circle with jump discontinuities
   t_for_f=-pi:2^(-10):pi;
-  plot(f1(t_for_f),f2(t_for_f))
+  plot(f1(t_for_f),f2(t_for_f),'LineWidth',2)
   hold on
 
   % plot the sampled data points
-  plot(data(:,1),data(:,2), '.','MarkerSize',8,'Color','r','LineStyle','none')
+  plot(data(:,1),data(:,2), '.','MarkerSize',10,'Color','r','LineStyle','none')
   hold on
 
   % plot the coarsest level (C^(0))
-  plot(c_0(:,1),c_0(:,2),'s','MarkerSize',10,'Color','k','LineStyle','none')
+  plot(c_0(:,1),c_0(:,2),'s','MarkerSize',10,'Color','k','MarkerFaceColor','k','LineStyle','none')
+  axis off
+  axis equal
+  xlim ([-1.5, 1.5])
+  ylim ([-1.5, 1.5])
   legend('original curve','data', '$c^{(0)}$','FontSize',20,'Interpreter','latex');
 end
 

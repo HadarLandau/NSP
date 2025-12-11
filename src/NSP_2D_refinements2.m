@@ -33,7 +33,9 @@ function [f_refinemented] = NSP_2D_refinements2 (data, J, mask_ev, mask_odd)
   for k=1:J
 
       mask_ev_k=mask_ev{k};
+      %mask_ev_k=[0.125 ; 0.75; 0.125]; %%%%%%%%%%%%%%%%%%%%%%%%%%
       mask_odd_k=mask_odd{k};
+      %mask_odd_k=[0.5 ; 0.5]; %%%%%%%%%%%%%%%%%%%%%%%%%%
       le=length(mask_ev_k);
       lo=length(mask_odd_k);
 
@@ -108,6 +110,10 @@ function [f_refinemented] = NSP_2D_refinements2 (data, J, mask_ev, mask_odd)
   f_refinement_J=f_refinements{J+1};
   plot(f_refinement_J((N-1)*2^J:end-N*2^J,1),f_refinement_J((N-1)*2^J:end-N*2^J,2),...
                                     '.','MarkerSize',15,'Color','r','LineStyle','none')
+  ax = gca;
+  ax.FontSize = 26; 
+  axis off
+  axis equal
   xlim([-1.2 1.2])
   ylim([-1.2 1.2])
   legend('original curve','data', 'refinemented data','Interpreter','latex','FontSize',35)

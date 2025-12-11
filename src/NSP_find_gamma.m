@@ -60,20 +60,25 @@ end
 
 % plot gamma^(l) for l=1,...,4
 figure
-for l=1:4
-  subplot(1,4,l)
-  plot ((gamma{l}))
+for l=4
+  %subplot(1,4,l)
+  plot ((gamma{l}),'LineWidth',3)
   xticklabels({})
+  %
   if l==1
       xlim([38 64])
   elseif l==2
       xlim([19 29])
+      ylim([-1.2 1.6])
   elseif l==3
       xlim([16 26])
+      ylim([-1.2 1.6])
   else
       xlim([15 25])
+      ylim([-1.2 1.6])
   end
-  title (['$\ell$ = ',num2str(l)],'FontSize', 24 ,'Interpreter','latex')
+  %}
+  title (['$\ell$ = ',num2str(l)],'FontSize', 30 ,'Interpreter','latex')
 end
 end
 
