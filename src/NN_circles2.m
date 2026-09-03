@@ -4,7 +4,7 @@
 clear; clc; close all;
 
 %% Parameters
-num_centers = 3500;       % Number of training examples
+num_centers = 10000;       % Number of training examples
 num_points = 128;          % Number of equidistant points on the circle
 hidden_layer_sizes = [32, 32, 16];  % Hidden layers
 

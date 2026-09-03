@@ -1,4 +1,4 @@
-function [details] = NSP_2D_padded_decomposition4 (data, J)
+function [details,padded_c_0, padded_details] = NSP_2D_padded_decomposition4 (data, J)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This function receives refined data C^(J), decomposes it through %
 % a multiscale transform, and returns coarse data C^(0) along with %
@@ -21,7 +21,7 @@ function [details] = NSP_2D_padded_decomposition4 (data, J)
 
   % concatenating the data with itself to overcome edge anomalies
   padded_details=cell(J,1);
-  padded_data=[data;data;data;data;data;data;data;data;data];
+  padded_data=[data;data;data;data;data];
 
   c_l=padded_data;  %padded C_J
   length_data=length(data);
@@ -99,7 +99,7 @@ function [details] = NSP_2D_padded_decomposition4 (data, J)
   % extract the original pyramid (without padding)
   for l=1:J
     padded_details_l=padded_details{l};
-    pad_length=4*length_data/(2^(J-l));
+    pad_length=2*length_data/(2^(J-l));
 
     details{l}=padded_details_l(pad_length+12:end-pad_length-11,:);%%%%%%%%%%%  fig 4,5
     %details{l}=padded_details_l(pad_length+1:end-pad_length,:);%%%%%%%%%%%%     fig 7
@@ -109,6 +109,7 @@ function [details] = NSP_2D_padded_decomposition4 (data, J)
 
   % extract original C^(0) (without padding)
   pad_length=2*length_data/(2^J);
+  padded_c_0=prev_c_l;%%%%
   c_0=prev_c_l(pad_length+1:end-pad_length,:);
 
   % plot the Euclidean norms of the detail coefficients
@@ -124,14 +125,14 @@ function [details] = NSP_2D_padded_decomposition4 (data, J)
   hold on
 
   % plot the sampled data points
-  plot(data(:,1),data(:,2), '.','MarkerSize',10,'Color','r','LineStyle','none')
+  plot(data(:,1),data(:,2), '.','MarkerSize',13,'Color','r','LineStyle','none')
   hold on
 
   % plot the coarsest level (C^(0))
   plot(c_0(:,1),c_0(:,2),'s','MarkerSize',10,'Color','k','MarkerFaceColor','k','LineStyle','none')
   axis off
   axis equal
-  %xlim ([2.5, 5.5])
-  %ylim ([4.5, 7.5])
+  xlim ([-1.5, 1.5])
+  ylim ([-1.5, 1.5])
   legend('original curve','data', '$c^{(0)}$','FontSize',20,'Interpreter','latex');
 end

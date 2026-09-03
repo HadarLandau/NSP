@@ -1,5 +1,3 @@
-% figure 1
-
 function gamma = NSP_find_gamma(alpha_ev, eps)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This function computes decimation masks gamma^(l) for a given refinement  %
@@ -60,11 +58,12 @@ end
 
 % plot gamma^(l) for l=1,...,4
 figure
-for l=4
-  %subplot(1,4,l)
+for l=1:4
+  subplot(1,4,l)
   plot ((gamma{l}),'LineWidth',3)
   xticklabels({})
-  %
+
+  % adjust axes for better visualization
   if l==1
       xlim([38 64])
   elseif l==2
@@ -77,7 +76,8 @@ for l=4
       xlim([15 25])
       ylim([-1.2 1.6])
   end
-  %}
+
+  % display level index in the title
   title (['$\ell$ = ',num2str(l)],'FontSize', 30 ,'Interpreter','latex')
 end
 end

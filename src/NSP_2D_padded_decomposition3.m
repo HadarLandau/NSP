@@ -114,7 +114,7 @@ function [details] = NSP_2D_padded_decomposition3 (data, J)
   c_0=prev_c_l(pad_length+1:end-pad_length,:);
 
   % plot the Euclidean norms of the detail coefficients
-  NSP_plot_details (details)
+  NSP_plot_details2 (details)
 
   % plot C^(J) and C^(0)
   figure

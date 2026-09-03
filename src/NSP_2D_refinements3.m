@@ -1,6 +1,4 @@
-%figure 3
-
-function [f_refinemented] = NSP_2D_refinements3 (data, J, mask_ev, mask_odd)
+function [f_refined] = NSP_2D_refinements3 (data, J, mask_ev, mask_odd)
 % with zoom
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This function performs J levels of refinement on N equidistant 2D sample points %
