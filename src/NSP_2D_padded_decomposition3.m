@@ -1,56 +1,65 @@
-% figures 4,5
+function [details] = NSP_2D_padded_decomposition3 (data, J, fig, plot_flag)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This function performs J levels of multiscale decomposition of 2D data   %
+% using the non-stationary geometric subdivision scheme.                   %
+%                                                                          %
+% At each level, the coarse data is obtained by applying the corresponding %
+% decimation operator, and the detail coefficients are computed as the     %
+% difference between the original data and its reconstruction from the     %
+% coarser level.                                                           %
+%                                                                          %
+% Inputs:                                                                  %
+%   data      - an N×2 matrix of 2D sample points; N must be even          %
+%   J         - number of decomposition levels, in the range [1,6]         %
+%   fig       - figure identifier specifying the amount of padding to      %
+%               remove when extracting the detail coefficients             %
+%   plot_flag - logical flag; if true, the detail coefficients and the     %
+%               coarsest data are plotted                                  %
+%                                                                          %
+% Output:                                                                  %
+%   details   - cell array of length J containing the detail coefficients  %
+%               at each decomposition level                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [details] = NSP_2D_padded_decomposition3 (data, J)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This function receives refined data C^(J), decomposes it through %
-% a multiscale transform, and returns coarse data C^(0) along with %
-% the corresponding detail coefficients.                           %
-%                                                                  %
-% Inputs:                                                          %
-%   data - a vector of samples                                     %
-%   J    - number of decomposition levels, in the range [1, 6]     %
-%                                                                  %
-% Output:                                                          %
-%   details - A cell array containing the detail coefficients      %
-%             d{1},...,d{J}                                        %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% length(data) must be even!
-
-
+  % initialize storage for the detail coefficients
   details=cell(J,1);
 
-  % concatenating the data with itself to overcome edge anomalies
+  % concatenating the data with itself to reduce boundary effects during
+  % the convolution and decimation operations.
   padded_details=cell(J,1);
   padded_data=[data;data;data;data;data];
 
-  c_l=padded_data;  %padded C_J
+  % initialize the current level with the padded data C^(J)
+  c_l=padded_data;  
   length_data=length(data);
+ 
+  %% perform the multiscale decomposition
+  % the decomposition proceeds from the finest level J down to level 1
+  for l=J:-1:1
 
-
-  for l=J:-1:1 % l is the level of the decomposition
-
-    % compute the current length of C^(l)
+    % current number of data points at level l
     L=size(c_l,1);
-    % compute the geometric subdivision mask alpha^(l)
+
+    % construct the level-dependent geometric subdivision masks, the parameter
+    % v is determined by the number of points at the corresponding scale
     [alpha_ev, alpha_odd] = NSP_create_mask_a1_2 (cos(2*pi/(length_data/2^(J-l+1))));
 
-    % compute the decimation operator gamma^(l)
+    % compute the decimation mask gamma^(l)
     gamma=NSP_find_gamma2(alpha_ev, 15);
 
 
-    % compute C^(l-1) = D_gamma^(l) * C^(l)
+    % compute the coarse data C^(l-1) = D_gamma^(l) * C^(l)
 
-    % downsample C^(l)
+    % downsample C^(l) by retaining every second point
     downsampled_c_l=zeros(L/2,2);
     for i=1:length(downsampled_c_l)
       downsampled_c_l(i,:)=c_l(2*i-1,:);
     end
 
-    % convolve with gamma^(l)
+    % apply the decimation mask by convolution
     prev_c_l=zeros(size(downsampled_c_l));  %C^(l-1)
     shift=(length(gamma)+1)/2;
+
     for i=1:length((downsampled_c_l))
       for j=1:length((downsampled_c_l))
         if i-j+shift>0 && i-j+shift<=length(gamma)
@@ -62,9 +71,10 @@ function [details] = NSP_2D_padded_decomposition3 (data, J)
 
     % compute S_alpha^(l)C^(l-1)
 
-    % convolution with the even rule
+    % apply the even subdivision rule
     le=length(alpha_ev);
     refined_c_l_ev=zeros(length(prev_c_l),2);
+
     for i=1:length(refined_c_l_ev)
        for j=-ceil(le/2)+1:floor(le/2)
            if i+j>0  &&  i+j<=length(prev_c_l)
@@ -73,9 +83,10 @@ function [details] = NSP_2D_padded_decomposition3 (data, J)
        end
     end
 
-    % convolution with the odd rule
+    % apply the odd subdivision rule
     lo=length(alpha_odd);
     refined_c_l_odd=zeros(length(prev_c_l),2);
+
     for i=1:length(refined_c_l_odd)
        for j=-ceil(lo/2)+1:floor(lo/2)
            if i+j>0  &&  i+j<=length(prev_c_l)
@@ -84,58 +95,79 @@ function [details] = NSP_2D_padded_decomposition3 (data, J)
        end
     end
 
-    % merge even and odd refinements
+    % merge the even and odd refinements
     refined_c_l_x=[refined_c_l_ev(:,1)';refined_c_l_odd(:,1)'];
     refined_c_l_x=refined_c_l_x(:);
+
     refined_c_l_y=[refined_c_l_ev(:,2)';refined_c_l_odd(:,2)'];
     refined_c_l_y=refined_c_l_y(:);
+
     refined_c_l=[refined_c_l_x,refined_c_l_y];
 
-    % compute d^(l) 
+    % compute the detail coefficients d^(l) 
     padded_details{l}=c_l-refined_c_l;
 
-    % prepare for next iteration
+    % prepare for the next iteration
     c_l=prev_c_l;
   end
 
-  % extract the original pyramid (without padding)
+  % remove padding from the detail coefficients
   for l=1:J
     padded_details_l=padded_details{l};
+
+    % determine the amount of padding to remove at the current level
     pad_length=2*length_data/(2^(J-l));
 
-    details{l}=padded_details_l(pad_length+12:end-pad_length-11,:);%%%%%%%%%%%  fig 4,5
-    %details{l}=padded_details_l(pad_length+1:end-pad_length,:);%%%%%%%%%%%%     fig 7
-    %details{l}=padded_details_l(pad_length+4:end-pad_length-3,:);%%%%%%%%%%%%    new fig
-    %details{l}=padded_details_l(pad_length+13:end-pad_length-12,:);
+    if strcmp(fig, 'fig7')==1
+        % Extract the relevant detail coefficients for Figure 7
+        % after removing the padded boundary regions 
+        details{l}=padded_details_l(pad_length+1:end-pad_length,:); 
+      
+    elseif strcmp(fig, 'fig10')==1
+        % extract the relevant detail coefficients for Figure 10
+        % after removing the padded boundary regions and boundary artifacts
+        details{l}=padded_details_l(pad_length+4:end-pad_length-3,:);
+
+    else % fig=='fig4','fig5','fig8'
+        % Extract the relevant detail coefficients for Figures 4,5 and 8
+        % after removing the padded boundary regions and boundary artifacts
+        details{l}=padded_details_l(pad_length+12:end-pad_length-11,:); 
+    end
   end
 
-  % extract original C^(0) (without padding)
+  % extract the coarsest approximation C^(0)
   pad_length=2*length_data/(2^J);
   c_0=prev_c_l(pad_length+1:end-pad_length,:);
 
-  % plot the Euclidean norms of the detail coefficients
-  NSP_plot_details2 (details)
+  % optional visualization
+  if plot_flag
 
-  % plot C^(J) and C^(0)
-  figure
+    % plot the Euclidean norms of the detail coefficients at each level
+    NSP_plot_details (details)
 
-  % plot the original signal
-  f1=@(t) cos(t); f2=@(t) sin(t);   %circle
-  t_for_f=-pi:2^(-10):pi;
-  plot(f1(t_for_f),f2(t_for_f),'LineWidth',2)
-  hold on
+    figure
 
-  % plot the sampled data points
-  plot(data(:,1),data(:,2), '.','MarkerSize',10,'Color','r','LineStyle','none')
-  hold on
+    % Define the reference curve (unit circle)
+    f1=@(t) cos(t); f2=@(t) sin(t);   
+    t_for_f=-pi:2^(-10):pi;
+    plot(f1(t_for_f),f2(t_for_f),'LineWidth',2)
+    hold on
 
-  % plot the coarsest level (C^(0))
-  plot(c_0(:,1),c_0(:,2),'s','MarkerSize',10,'Color','k','MarkerFaceColor','k','LineStyle','none')
-  axis off
-  axis equal
-  xlim ([-1.5, 1.5])
-  ylim ([-1.5, 1.5])
-  legend('original curve','data', '$c^{(0)}$','FontSize',20,'Interpreter','latex');
+    % plot the sampled data points
+    plot(data(:,1),data(:,2), '.','MarkerSize',10,'Color','r','LineStyle','none')
+    hold on
+
+    % plot the coarsest approximation C^(0)
+    plot(c_0(:,1),c_0(:,2),'s','MarkerSize',10,'Color','k','MarkerFaceColor','k','LineStyle','none')
+    
+    % format the figure
+    axis off
+    axis equal
+    xlim ([-1.5, 1.5])
+    ylim ([-1.5, 1.5])
+
+    legend('original curve','data', '$c^{(0)}$','FontSize',20,'Interpreter','latex');
+  end
 end
 
 

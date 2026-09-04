@@ -10,7 +10,7 @@
 %   2. The non-stationary geometric refinement masks are constructed   %
 %      using the parameter v = cos(2π/N).                              %
 %   3. A stationary refinement scheme is defined using uniform         %
-%      cubic B-spline masks.                                          %
+%      cubic B-spline masks.                                           %
 %   4. Three levels of refinement are applied using both schemes.      %
 %   5. The resulting refined point sets are displayed for comparison.  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

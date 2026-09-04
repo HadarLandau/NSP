@@ -101,7 +101,7 @@ function [f_refinements] = NSP_2D_refinements (data, J, mask_ev, mask_odd)
   % plot final refined data (subset corresponding to original domain)
   f_refinement_J=f_refinements{J+1};
   plot(f_refinement_J((N-1)*2^J:end-N*2^J,1),f_refinement_J((N-1)*2^J:end-N*2^J,2),...
-                                    '.','MarkerSize',15,'Color','r','LineStyle','none')
+                                    '-r.','MarkerSize',15,'Color','r')
   
   % formatting
   ax = gca;
@@ -110,5 +110,5 @@ function [f_refinements] = NSP_2D_refinements (data, J, mask_ev, mask_odd)
   axis equal
   xlim([-1.2 1.2])
   ylim([-1.2 1.2])
-  legend('original curve','data', 'refinemented data','Interpreter','latex','FontSize',15)
+  legend('original curve','data', 'refined data','Interpreter','latex','FontSize',15)
 end
