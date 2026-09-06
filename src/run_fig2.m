@@ -19,4 +19,4 @@
 
 % compute the decimation masks gamma^(l)
 % the parameter 15 sets the truncation precision for small coefficients
-gamma=NSP_find_gamma(mask_ev,15);
+gamma=NSP_find_gamma_cell(mask_ev,15);

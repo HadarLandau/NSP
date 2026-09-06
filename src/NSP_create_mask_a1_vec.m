@@ -1,6 +1,4 @@
-% figures 4-9
-
-function [mask_ev, mask_odd] = NSP_create_mask_a1_2 (initial_v)
+function [mask_ev, mask_odd] = NSP_create_mask_a1_vec (initial_v)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This function computes the geometric subdivision mask corresponding   % 
 % to the first refinement level, based on a given initial value of v.   %

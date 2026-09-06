@@ -21,15 +21,23 @@
 %      plotted separately for comparison.                               %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-pred_xy=NN_circles2(0);
 
+%% Generate the sampled data
 
-f_samples_semicircle=NSP_2D_get_samples (128,0.7,'wavy');      % wavy distortion
-f_samples_noisycircle=NSP_2D_get_samples (128,0.3,'base');     % more oscillation
-shifted_NN_samples=pred_xy-[4;6];                               % NN circle
+% wavy distortion with amplitude sigma = 0.7
+f_samples_semicircle=NSP_2D_get_samples (128,0.7,'wavy'); 
+
+% periodic oscillatory distortion with amplitude sigma = 0.3
+f_samples_noisycircle=NSP_2D_get_samples (128,0.3,'base'); 
+
+% generate the neural network data
+pred_xy=NN_circles_128pts(0);
+% shift the NN-generated circle to the appropriate position
+shifted_NN_samples=pred_xy-[4;6];                               
 shifted_NN_samples=shifted_NN_samples';
 
-% measure the difference from a perfect circle
+%% measure the deviation from a perfect unit circle
+% compute x^2 + y^2 - 1 for each sample point
 diff_wavy=sum(f_samples_semicircle.^2,2)-1;
 diff_noisy=sum(f_samples_noisycircle.^2,2)-1;
 diff_NN=sum(shifted_NN_samples.^2,2)-1;
@@ -83,53 +91,68 @@ plot(diff_NN)
 
 % plotting the differences along with the samples in different figures
 
-%% wavy circle
+%% plot the wavy circle
+
 figure
-% plot a cicrle
-f1=@(t) cos(t); f2=@(t) sin(t);   %circle
+
+% plot the perfect unit cicrle
+f1=@(t) cos(t); f2=@(t) sin(t);   
 t_for_f=-pi:2^(-10):pi;
 plot(f1(t_for_f),f2(t_for_f),'LineWidth',2)
 hold on
+
 % plot the sampled data points
 plot(f_samples_semicircle(:,1),f_samples_semicircle(:,2), '.','MarkerSize',10,'Color','r','LineStyle','none')
 axis equal
 axis off
 
 figure
+
+% plot the deviation from the unit circle
 plot(diff_wavy)
 xlim([0, 128])
 set(gca,'fontsize',24);
 
-%% noisy circle
+%% plot the oscillatory circle
+
 figure
-% plot a cicrle
-f1=@(t) cos(t); f2=@(t) sin(t);   %circle
+
+% plot the perfect unit cicrle
+f1=@(t) cos(t); f2=@(t) sin(t);  
 t_for_f=-pi:2^(-10):pi;
 plot(f1(t_for_f),f2(t_for_f),'LineWidth',2)
 hold on
+
 % plot the sampled data points
 plot(f_samples_noisycircle(:,1),f_samples_noisycircle(:,2), '.','MarkerSize',10,'Color','r','LineStyle','none')
 axis equal
 axis off
 
 figure
+
+% plot the deviation from the unit circle
 plot(diff_noisy)
 xlim([0, 128])
 set(gca,'fontsize',24);
 
-%% NN cicrle
+%% plot the NN cicrle
+
 figure
-% plot a cicrle
-f1=@(t) cos(t); f2=@(t) sin(t);   %circle
+
+% plot the perfect unit cicrle
+f1=@(t) cos(t); f2=@(t) sin(t);   
 t_for_f=-pi:2^(-10):pi;
 plot(f1(t_for_f),f2(t_for_f),'LineWidth',2)
 hold on
-% plot the sampled data points
+
+% plot the NN-generated sample points
 plot(shifted_NN_samples(:,1),shifted_NN_samples(:,2), '.','MarkerSize',10,'Color','r','LineStyle','none')
 axis equal
 axis off
 
 figure
+
+% plot the deviation from the unit circle
 plot(diff_NN)
 xlim([0, 128])
 ylim([-0.0015, 0.0013])

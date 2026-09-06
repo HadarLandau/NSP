@@ -1,4 +1,4 @@
-function [pred_xy] = NN_circles2 (plot_flag)
+function [pred_xy] = NN_circles_128pts (plot_flag)
 
     %% Parameters
     num_centers = 10000;       % Number of training examples

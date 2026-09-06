@@ -20,7 +20,7 @@ f_samples=NSP_2D_get_samples (16, 0, 'base');
 
 % construct geometric non-stationary subdivision masks,
 % the parameter initial_v is chosen according to v = cos(2π/N)
-[a1_ev, a1_odd]=NSP_create_mask_a1 (cos(2*pi/16));
+[a1_ev, a1_odd]=NSP_create_mask_a1_cell (cos(2*pi/16));
 
 % construct uniform cubic B-spline masks (stationary scheme)
 CBS_ev=cell(6,1);

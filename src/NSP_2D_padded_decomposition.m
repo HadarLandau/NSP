@@ -1,4 +1,4 @@
-function [details] = NSP_2D_padded_decomposition3 (data, J, fig, plot_flag)
+function [details] = NSP_2D_padded_decomposition (data, J, fig, plot_flag)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This function performs J levels of multiscale decomposition of 2D data   %
 % using the non-stationary geometric subdivision scheme.                   %
@@ -42,10 +42,10 @@ function [details] = NSP_2D_padded_decomposition3 (data, J, fig, plot_flag)
 
     % construct the level-dependent geometric subdivision masks, the parameter
     % v is determined by the number of points at the corresponding scale
-    [alpha_ev, alpha_odd] = NSP_create_mask_a1_2 (cos(2*pi/(length_data/2^(J-l+1))));
+    [alpha_ev, alpha_odd]=NSP_create_mask_a1_vec(cos(2*pi/(length_data/2^(J-l+1))));
 
     % compute the decimation mask gamma^(l)
-    gamma=NSP_find_gamma2(alpha_ev, 15);
+    gamma=NSP_find_gamma_vec(alpha_ev, 15);
 
 
     % compute the coarse data C^(l-1) = D_gamma^(l) * C^(l)

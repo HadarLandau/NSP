@@ -1,4 +1,4 @@
-function gamma = NSP_find_gamma(alpha_ev, eps)
+function gamma = NSP_find_gamma_cell(alpha_ev, eps)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This function computes decimation masks gamma^(l) for a given refinement  %
 % masks alpha^(l)                                                           %

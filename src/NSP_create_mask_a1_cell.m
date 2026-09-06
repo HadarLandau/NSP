@@ -1,4 +1,4 @@
-function [mask_ev, mask_odd] = NSP_create_mask_a1 (initial_v)
+function [mask_ev, mask_odd] = NSP_create_mask_a1_cell (initial_v)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This function computes the geometric subdivision masks associated   %
 % with a given initial value of v.                                    %
