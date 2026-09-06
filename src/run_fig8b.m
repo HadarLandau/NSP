@@ -22,8 +22,8 @@ f_samples_noisycircle=NSP_2D_get_samples2 (256,0.3,'none');     % more oscillati
   mean_norms1=zeros(1,4);
   var_norms1=zeros(1,4);
   for k=1:4
-    details_norms1{k}=sum(abs(details1{k}))
-    mean_norms1(k)=sqrt(sum(details_norms1{k}.^2,2))
+    details_norms1{k}=sum(abs(details1{k}));
+    mean_norms1(k)=sqrt(sum(details_norms1{k}.^2,2));
     var_norms1(k)=var(details_norms1{k});
   end
 
