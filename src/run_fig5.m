@@ -17,11 +17,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % generate the sampled data with different types and levels of distortion
-f_samples_semicircle=NSP_2D_get_samples (256,0.3,'wavy');      % wavy-distorted data
-f_samples_lessnoisycircle=NSP_2D_get_samples (256,0.1,'base'); % mildly oscillatory data
-f_samples_noisycircle=NSP_2D_get_samples (256,0.3,'base');     % more strongly oscillatory data
+f_samples_semicircle=NSP_2D_get_samples(256,0.3,'wavy');      % wavy-distorted data
+f_samples_lessnoisycircle=NSP_2D_get_samples(256,0.1,'base'); % mildly oscillatory data
+f_samples_noisycircle=NSP_2D_get_samples(256,0.3,'base');     % more strongly oscillatory data
 
 % perform four levels of multiscale analysis and plot the results
-NSP_2D_padded_decomposition (f_samples_semicircle, 4, 'fig5', 1);
-NSP_2D_padded_decomposition (f_samples_lessnoisycircle, 4, 'fig5', 1);
-NSP_2D_padded_decomposition (f_samples_noisycircle, 4, 'fig5', 1);
+NSP_2D_padded_decomposition(f_samples_semicircle, 4, 'fig5', 1);
+NSP_2D_padded_decomposition(f_samples_lessnoisycircle, 4, 'fig5', 1);
+NSP_2D_padded_decomposition(f_samples_noisycircle, 4, 'fig5', 1);

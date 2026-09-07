@@ -79,43 +79,93 @@ function [f_refined] = NSP_2D_refinements3 (data, J, mask_ev, mask_odd)
   end
 
   % return all refinements
-  f_refinemented=f_refinements;
+  f_refined=f_refinements;
 
 
-  % plot
+% =========================
+% Main plot
+% =========================
+
+  % define reference curve
+  f1=@(t) cos(t); f2=@(t) sin(t);   % unit circle
+
+  N=size(data,1);
 
   figure
 
-  % define the curve
-  f1=@(t) cos(t); f2=@(t) sin(t);   % unit circle
+% plot continuous reference curve
+t_for_f = -pi:2^(-10):pi;
+plot(f1(t_for_f), f2(t_for_f))
+hold on
 
-  % other example curves (commented out):
-  %f1=@(t) 4*cos(t);  f2=@(t) 2*sin(t);   % ellipse
-  %f1=@(t) t;         f2=@(t) t.^2;       % parabola
-  %f1=@(t) cosh(t);   f2=@(t) sinh(t);    % hyperbola
+% plot initial data points
+plot(data(:,1), data(:,2), ...
+    '-s', ...
+    'MarkerSize', 13, ...
+    'Color', 'k', ...
+    'MarkerFaceColor', 'k', ...
+    'LineStyle', 'none')
 
-  N=size(data,1); 
+% plot final refined data (subset corresponding to original domain)
+f_refinement_J = f_refinements{J+1};
 
-  % the original signal
-  t_for_f=-pi:2^(-10):pi;
-  plot(f1(t_for_f),f2(t_for_f))
-  hold on
+plot(f_refinement_J((N-1)*2^J:end-N*2^J,1), ...
+     f_refinement_J((N-1)*2^J:end-N*2^J,2), ...
+     '-r.', ...
+     'MarkerSize', 15, ...
+     'Color', 'r')
 
-  % the given data points
-  plot(data(:,1),data(:,2),'-s','MarkerSize',13,'Color','k','MarkerFaceColor','k','LineStyle','none')
-  hold on
-   
-  % the final refined data
-  f_refinement_J=f_refinements{J+1};
-  p=plot(f_refinement_J((N-1)*2^J:end-N*2^J,1),f_refinement_J((N-1)*2^J:end-N*2^J,2)...
-                                 ,'Color','r');
-  p.Marker = '.';
-  p.MarkerSize = 10;
-  ax = gca;
-  ax.FontSize = 26; 
-  axis off
-  axis equal
-  xlim([-1.2 1.2])
-  ylim([-1.2 1.2])
-  legend('original curve','data', 'refinemented data','Interpreter','latex','FontSize',14)
+% formatting
+ax = gca;
+ax.FontSize = 26;
+axis off
+axis equal
+xlim([-1.2 1.2])
+ylim([-1.2 1.2])
+
+legend('original curve', 'data', 'refined data', ...
+       'Interpreter', 'latex', 'FontSize', 15)
+
+
+% =========================
+% Zoomed-in inset
+% =========================
+
+ax_zoom = axes('Position', [0.30 0.15 0.22 0.22]);
+
+% reference curve
+plot(f1(t_for_f), f2(t_for_f))
+hold on
+
+% initial data points
+plot(data(:,1), data(:,2), ...
+    '-s', ...
+    'MarkerSize', 13, ...
+    'Color', 'k', ...
+    'MarkerFaceColor', 'k', ...
+    'LineStyle', 'none')
+
+% refined data
+plot(f_refinement_J((N-1)*2^J:end-N*2^J,1), ...
+     f_refinement_J((N-1)*2^J:end-N*2^J,2), ...
+     '-r.', ...
+     'MarkerSize', 15, ...
+     'Color', 'r')
+
+% limits of the zoom (focusing on a region in the third quadrant)
+x_center = -0.7071; % e.g., cos(-3*pi/4) on the unit circle
+y_center = -0.7071; % e.g., sin(-3*pi/4) on the unit circle
+zoom_width = 0.3;   % adjust window size (smaller = more zoomed in)
+
+axis equal
+xlim([x_center - zoom_width/2, x_center + zoom_width/2])
+ylim([y_center - zoom_width/2, y_center + zoom_width/2])
+
+daspect(ax_zoom, [1 1 1])
+
+%axis equal
+box on
+set(gca, 'FontSize', 12)
+
+
 end

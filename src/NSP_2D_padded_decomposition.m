@@ -145,28 +145,32 @@ function [details] = NSP_2D_padded_decomposition (data, J, fig, plot_flag)
     % plot the Euclidean norms of the detail coefficients at each level
     NSP_plot_details (details)
 
-    figure
+    if strcmp(fig, 'fig10')~=1 %for all figures accept fiure 10
 
-    % Define the reference curve (unit circle)
-    f1=@(t) cos(t); f2=@(t) sin(t);   
-    t_for_f=-pi:2^(-10):pi;
-    plot(f1(t_for_f),f2(t_for_f),'LineWidth',2)
-    hold on
-
-    % plot the sampled data points
-    plot(data(:,1),data(:,2), '.','MarkerSize',10,'Color','r','LineStyle','none')
-    hold on
-
-    % plot the coarsest approximation C^(0)
-    plot(c_0(:,1),c_0(:,2),'s','MarkerSize',10,'Color','k','MarkerFaceColor','k','LineStyle','none')
+        figure
     
-    % format the figure
-    axis off
-    axis equal
-    xlim ([-1.5, 1.5])
-    ylim ([-1.5, 1.5])
+        % Define the reference curve (unit circle)
+        f1=@(t) cos(t); f2=@(t) sin(t);   
+        t_for_f=-pi:2^(-10):pi;
+        plot(f1(t_for_f),f2(t_for_f),'LineWidth',2)
+        hold on
+    
+        % plot the sampled data points
+        plot(data(:,1),data(:,2), '.','MarkerSize',10,'Color','r','LineStyle','none')
+        hold on
+    
+        % plot the coarsest approximation C^(0)
+        plot(c_0(:,1),c_0(:,2),'s','MarkerSize',10,'Color','k','MarkerFaceColor','k','LineStyle','none')
+        
+        % format the figure
+        axis off
+        axis equal
+        xlim ([-1.5, 1.5])
+        ylim ([-1.5, 1.5])
+    
+        legend('original curve','data', '$c^{(0)}$','FontSize',20,'Interpreter','latex');
 
-    legend('original curve','data', '$c^{(0)}$','FontSize',20,'Interpreter','latex');
+    end
   end
 end
 
