@@ -92,7 +92,7 @@ A complete bibliographic reference, including authors, publication details, and 
 
 ## License
 
-This project is licensed under the **MIT License**. See the [`LICENSE`](LICENSE) file for the full license text.
+This project is licensed under the **Apache License**. See the [`LICENSE`](LICENSE) file for the full license text.
 
 If you use this code in academic work, please cite the accompanying paper.
 
