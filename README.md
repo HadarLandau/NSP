@@ -25,7 +25,7 @@ The code was developed and tested using:
 * **MATLAB R2024b Update 4**
 * **Deep Learning Toolbox R2024b**
 
-%%The code was tested on Linux.
+The code was tested on Linux.
 
 ## Repository Structure
 
@@ -53,7 +53,7 @@ run_fig4
 
 All scripts whose names begin with `run_fig` are intended to reproduce the corresponding graphs and experiments presented in the paper.
 
-%%Make sure that the `src` directory is included in the MATLAB path before running the scripts. This can be done, for example, with:
+Make sure that the `src` directory is included in the MATLAB path before running the scripts. This can be done, for example, with:
 
 ```matlab
 addpath('src')
@@ -88,12 +88,12 @@ This repository accompanies the paper:
 > **Geometric multiscale analysis via non-stationary subdivision schemes**
 > *Citation information to be added.*
 
-%%A complete bibliographic reference, including authors, publication details, and DOI, will be added once available.
+A complete bibliographic reference, including authors, publication details, and DOI, will be added once available.
 
 ## License
 
-%%*License information to be added.*
+This project is licensed under the **MIT License**. See the [`LICENSE`](LICENSE) file for the full license text.
 
-## Contact
+If you use this code in academic work, please cite the accompanying paper.
 
-%%For questions regarding the code or the accompanying paper, please contact the authors.
+
