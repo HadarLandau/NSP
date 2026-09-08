@@ -1,5 +1,3 @@
-% figures 4-7,9
-
 function [] = NSP_plot_details (details)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This function visualizes the detail coefficients from a multiscale transform. %
@@ -25,8 +23,8 @@ function [] = NSP_plot_details (details)
   details_norms=cell(J,1);
   max_norms=zeros(J,1);
 
-  % compute the Euclidean norm of the detail vectors at each scale
-  % and store the maximum norm
+  % compute the Euclidean norm of the detail vectors at each scale and 
+  % store the maximum norm
   for k=1:J
     details_norms{k}=sqrt(sum(details{k}.^2,2));
     max_norms(k)=max(details_norms{k});

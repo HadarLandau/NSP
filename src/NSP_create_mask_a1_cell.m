@@ -5,7 +5,7 @@ function [mask_ev, mask_odd] = NSP_create_mask_a1_cell (initial_v)
 %                                                                     %
 % Input:                                                              %
 %   initial_v - initial value of the parameter v (chosen according to %
-%               equation (30))                                        %
+%               equation (34))                                        %
 %                                                                     %
 % Outputs:                                                            %
 %   mask_ev   - 6x1 cell array, each cell contains an even mask       %

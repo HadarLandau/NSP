@@ -143,13 +143,13 @@ function [details] = NSP_2D_padded_decomposition (data, J, fig, plot_flag)
   if plot_flag
 
     % plot the Euclidean norms of the detail coefficients at each level
-    NSP_plot_details (details)
+    NSP_plot_details(details)
 
-    if strcmp(fig, 'fig10')~=1 %for all figures accept fiure 10
+    if ~strcmp(fig,'fig10') % skip the following plot for Figure 10
 
         figure
     
-        % Define the reference curve (unit circle)
+        % define the reference curve (unit circle)
         f1=@(t) cos(t); f2=@(t) sin(t);   
         t_for_f=-pi:2^(-10):pi;
         plot(f1(t_for_f),f2(t_for_f),'LineWidth',2)

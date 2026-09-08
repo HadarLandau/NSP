@@ -40,11 +40,11 @@ function [f_samples] = NSP_2D_get_samples (N, sigma, mode)
 
       % sample y-coordinate and apply noise according to the selected mode
 
-      if strcmp(mode, 'wavy')==1
+      if strcmp(mode,'wavy')==1
         % global low-frequency oscillation
         f_samples(i,2) = f2(t_i) + sigma*cos(i/20);  
       
-      elseif strcmp(mode, 'qrtr')==1
+      elseif strcmp(mode,'qrtr')==1
         % localized oscillation on a quarter of the samples
         t=sin(0:pi/(N/4):pi); % smooth transition weights (sine window)
         if floor(N/4)<i && i<floor(1*N/2)

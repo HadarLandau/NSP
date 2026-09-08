@@ -26,19 +26,19 @@
 %% generate the sampled data
 
 % wavy distortion with amplitude sigma = 0.3
-f_samples_semicircle=NSP_2D_get_samples (256,0.3,'wavy');      
+f_samples_semicircle=NSP_2D_get_samples(256,0.3,'wavy');      
 
 % mild periodic oscillation with amplitude sigma = 0.1
-f_samples_lessnoisycircle=NSP_2D_get_samples (256,0.1,'base'); 
+f_samples_lessnoisycircle=NSP_2D_get_samples(256,0.1,'base'); 
 
 % stronger periodic oscillation with amplitude sigma = 0.3
-f_samples_noisycircle=NSP_2D_get_samples (256,0.3,'base');    
+f_samples_noisycircle=NSP_2D_get_samples(256,0.3,'base');    
 
 %% perform multiscale decomposition
 % Compute four levels of detail coefficients for each data set
-[details1] = NSP_2D_padded_decomposition (f_samples_semicircle, 4, 'fig5', 0);
-[details2] = NSP_2D_padded_decomposition (f_samples_lessnoisycircle, 4, 'fig5', 0);
-[details3] = NSP_2D_padded_decomposition (f_samples_noisycircle, 4, 'fig5', 0);
+[details1]=NSP_2D_padded_decomposition(f_samples_semicircle, 4, 'fig5', 0);
+[details2]=NSP_2D_padded_decomposition(f_samples_lessnoisycircle, 4, 'fig5', 0);
+[details3]=NSP_2D_padded_decomposition(f_samples_noisycircle, 4, 'fig5', 0);
 
 %% Compute norms of the detail coefficients
 

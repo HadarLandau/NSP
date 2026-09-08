@@ -1,15 +1,15 @@
 function [mask_ev, mask_odd] = NSP_create_mask_a1_vec (initial_v)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This function computes the geometric subdivision mask corresponding   % 
-% to the first refinement level, based on a given initial value of v.   %
-%                                                                       %
-% Input:                                                                %
-%   initial_v - the initial value of v (chosen according to equation ?) %
-%                                                                       %
-% Outputs:                                                              %
-%   mask_ev   - a vector representing the even mask                     %
-%   mask_odd  - a vector representing the corresponding odd mask        %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This function computes the geometric subdivision mask corresponding to   % 
+% the first refinement level, based on a given initial value of v.         %
+%                                                                          %
+% Input:                                                                   %
+%   initial_v - the initial value of v (chosen according to equation (34)) %
+%                                                                          %
+% Outputs:                                                                 %
+%   mask_ev   - a vector representing the even mask                        %
+%   mask_odd  - a vector representing the corresponding odd mask           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   % compute v
   v=sqrt((1+initial_v)/2);  

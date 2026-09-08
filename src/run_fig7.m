@@ -15,7 +15,7 @@
 
 % generate the sampled data with localized oscillatory distortion with
 % amplitude sigma = 0.3
-f_samples_qrtrnoisycircle=NSP_2D_get_samples (256,0.3,'qrtr'); 
+f_samples_qrtrnoisycircle=NSP_2D_get_samples(256,0.3,'qrtr'); 
 
 % perform four levels of multiscale analysis and plot the results
-NSP_2D_padded_decomposition (f_samples_qrtrnoisycircle, 4, 'fig7', 1);
+NSP_2D_padded_decomposition(f_samples_qrtrnoisycircle, 4, 'fig7', 1);

@@ -16,11 +16,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % generate initial sampled data (unit circle, no noise)
-f_samples=NSP_2D_get_samples (16, 0, 'base');
+f_samples=NSP_2D_get_samples(16, 0, 'base');
 
 % construct geometric non-stationary subdivision masks,
 % the parameter initial_v is chosen according to v = cos(2π/N)
-[a1_ev, a1_odd]=NSP_create_mask_a1_cell (cos(2*pi/16));
+[a1_ev, a1_odd]=NSP_create_mask_a1_cell(cos(2*pi/16));
 
 % construct uniform cubic B-spline masks (stationary scheme)
 CBS_ev=cell(6,1);
@@ -32,7 +32,7 @@ for k=1:6
 end
 
 % perform refinement using geometric (non-stationary) scheme
-geometric_refined=NSP_2D_refinements (f_samples, 3, a1_ev, a1_odd);
+geometric_refined=NSP_2D_refinements(f_samples, 3, a1_ev, a1_odd);
 
 % perform refinement using B-spline (stationary) scheme
-B_spline_refined=NSP_2D_refinements (f_samples, 3, CBS_ev, CBS_odd);
+B_spline_refined=NSP_2D_refinements(f_samples, 3, CBS_ev, CBS_odd);

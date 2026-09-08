@@ -11,9 +11,9 @@ function [f_refinements] = NSP_2D_refinements (data, J, mask_ev, mask_odd)
 %              refinement mask                                                    %
 %                                                                                 %
 % Output:                                                                         %
-%   f_refined - cell array of length J+1 containing all refinement levels,        %
-%               where f_refined{1} is the initial data, and f_refined{J+1} is     %
-%               the final refined data                                            %
+%   f_refinements - cell array of length J+1 containing all refinement levels,    %
+%                   where f_refined{1} is the initial data, and f_refined{J+1} is %
+%                   the final refined data                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   % initialize storage for all refinement levels

@@ -14,7 +14,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % generate initial sampled data from the unit circle
-f_samples_circle=NSP_2D_get_samples (256,0,'base');
+f_samples_circle=NSP_2D_get_samples(256,0,'base');
 
 % perform four levels of multiscale analysis and plot the results
-NSP_2D_padded_decomposition (f_samples_circle, 4, 'fig4', 1);
+NSP_2D_padded_decomposition(f_samples_circle, 4, 'fig4', 1);
